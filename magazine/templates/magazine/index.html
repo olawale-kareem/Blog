@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    My Magazine
+{% endblock%}
+
+{% block css_files%}
+    <link rel="stylesheet" href="{%static 'blog/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header id='main-navigation'>
+        <h1>
+            <a href="">marks Blog</a>
+        </h1>
+        <nav>
+            <a href="">All post</a>
+        </nav>
+    </header>
+
+    <section id='welcome'>
+        <header>
+            <img src="" alt="mark the author of the blog">
+            <h2>Marks Blog</h2>
+        </header>
+        <p> I a max and i love to blog about tech</p>
+    </section>
+
+    <section id='latest-posts'>
+        <h2>My latest posts</h2>
+        <ul>
+            <li>
+                <article class='post'>
+                    <a href="">
+                        <img src="" alt="Mountain Hiking">
+                        <div class="post__content">
+                            <h3>Mountain Hiking</h3>
+                            <p>
+                                There is no view as the view you get from hiking in the mountains.
+                                I wasn't even prepared for what happened whilst i was enjoying the view
+                            </p>
+                        </div>
+                    </a>
+                </article>
+            </li>
+        </ul>
+    </section>
+
+    <section id='about'>
+        <h2>What i do</h2>
+        <p>
+            I love programming, i love to help others 
+            and i enjoy exploring new technology in general
+        </p>
+        <p>
+            my goal is to keep on growing as a developer
+            and to help others too
+        </p>
+
+    </section>
+
+
+
+{% endblock%}
+
