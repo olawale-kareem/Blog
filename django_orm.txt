@@ -1,0 +1,82 @@
+orm operations
+>>> from book_store.models import Books
+# create
+# the first two statements after this line are the same
+>>> harry_porter=Books(title='The giant slayer',rating=8)
+>>> harry_porter=Books.objects.create(title='The giant slayer',rating=8, author='mark', is_best_selling=True)
+>>> harry_porter.save()
+>>> lord_of_the_rings=Books(title='Lord of the rings',rating=5)
+>>> lord_of_the_rings.save()
+>>> Books.objects.all()
+>>> Books.objects.all()[0]
+>>> Books.objects.all()[0].author
+>>> Books.objects.all()[0].is_best_selling
+
+
+
+update
+ha = Books.objects.all()[0]
+ha.author = 'mark'
+ha.save()
+delete
+ha = Books.objects.all()[0]
+ha.delete()
+
+query and filtering
+# get()
+# to get one item that has that property 
+# throws error when the result is more than 1
+
+Books.objects.get(is_best_selling=True)
+
+# filter()
+# get more data with the same attribute
+# can be use to query with more than one attribute
+
+>>> Books.objects.filter(is_best_selling=True)
+
+# query using AND btw two attribute
+>>> Books.objects.filter(is_best_selling=True, rating__gte=3)
+# contains word is case sensitive except you use the sql lite db
+# icontains is to ensure it is not case sensitive in other db
+>>> Books.objects.filter(title__contains='The', rating__gte=3)
+>>> Books.objects.filter(title__icontains='The', rating__gte=3)
+
+# query using OR btw two attribute
+# u need to import Q
+# from django.db.models import Q
+
+# using the OR alone
+# Books.objects.filter(Q(rating__gte=3) | Q(title__contains= 'The'))
+
+# using AND and OR
+# Books.objects.filter(Q(rating__gte=3) | Q(title__contains= 'The'), Q(title__contains= 'Rama'))
+
+# query performance
+# this helps us write querries for better performance
+# for example examine the querries below
+
+# django peforms lazy computation, meaning in the two objects 
+# created below the db is not hit only that the objects are saved in memory
+# this is caching
+
+bestseller = Books.objects.filter(is_best_selling=True)
+amazing_bestseller = Books.objects.filter(ratings__gte=10)
+
+# only when the output of the querry is used, thats when the db is hit
+print(bestseller) # the obly time we hit the db 
+
+print(amazing_bestseller) # processed this queeries based on cached results
+print(bestseller)
+
+#take home
+#structure your code to allow django re-use your code
+
+
+# django multiple delete, create and update
+
+delete:https://docs.djangoproject.com/en/3.1/topics/db/queries/#deleting-objects
+create:https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-update
+update:https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
+
+
