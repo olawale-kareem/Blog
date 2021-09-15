@@ -1,0 +1,25 @@
+{% extends 'book_store/base.html' %}
+
+{% block title %}
+    All blocks
+{% endblock %}
+
+
+
+{% block content %}
+   <ul>
+        {% for book in books %}
+            {% comment %} use with id {% endcomment %}
+            {% comment %} <li><a href={% url 'book-detail' book.id %}>{{book.title}} </a> ( Ratings: {{book.rating}})</li>  {% endcomment %}
+            
+            {% comment %} use with slug {% endcomment %}
+            <li><a href={% url 'book-detail' book.slug %}>{{book.title}} </a> ( Ratings: {{book.rating}})</li> 
+
+            {% comment %} use this for absolute url declared in the model that feeds this template {% endcomment %}
+            {% comment %} <li><a href={{  book.get_absolute_url }}>{{book.title}} </a> ( Ratings: {{book.rating}})</li>  {% endcomment %}
+        {% endfor %}
+   </ul>
+   <hr>
+   <p>Available number of books: {{ num_book }}<p/>
+   <p> Average Rating: {{ avg_rating.rating__avg }}<p/>
+{% endblock %}

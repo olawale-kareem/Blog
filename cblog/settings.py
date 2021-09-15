@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # my apps
     'magazine',
     'monthly_challenge',
+    'book_store',
     # in-built apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,6 +59,7 @@ ROOT_URLCONF = 'cblog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # a global template directory
         'DIRS': [
             BASE_DIR/'templates'
         ],
@@ -124,6 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# this is for global static file  directory
 
 STATICFILES_DIRS =[
     BASE_DIR/ 'static'
