@@ -5,6 +5,7 @@ from django.db.models import Avg, Min,Max
 
 from .models import Books
 
+
 def index(request):
     books = Books.objects.all().order_by('-rating')
     number_of_books = books.count()

@@ -80,3 +80,130 @@ create:https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-update
 update:https://docs.djangoproject.com/en/3.0/ref/models/querysets/#bulk-create
 
 
+# querring  connected tables
+# Book model has a foreign key relationship to Author model, with the author field as the reference
+# the author has a last_name and first_name
+
+# direct relation querring
+>>> books_rowling = Books.objects.get(author__last_name = 'AA')
+>>> books_rowling = Books.objects.get(author__last_name__contains = 'AA')
+
+
+# cross model querry: This is  inverse relation querring on a model connected with a foreign key
+
+#  solution 1
+# we want to querry through the Author model, note the author model does not have a book field but django gat us covered 
+# This is possible by using the inverse querry on each of the author instance needed
+# The model with the foreing key is the Books, u querry using books_set, the books_set becomes the object holding all the relationship of the other Author class
+# all other querry goes well with the books_set
+
+>>> Author.objects.all()[0].books_set
+>>> Author.objects.all()[0].books_set.all()
+>>> Author.objects.all()[0].books_set
+>>> Author.objects.all()[0].books_set.filter(rating__gte=8)
+>>> Author.objects.all()[0].books_set.get(rating=9)
+
+# solution 2
+# we go to where the the model that holds the Foreign key relationship to the onw we want to querry is, then we set 'related_name=' properties.
+# you can then use the related name to do inverse querry as you want.
+# if we set related_name= 'books', then we querry below
+
+>>> Author.objects.all()[0].books.all()
+>>> Author.objects.all()[0].books.filter(rating__gte=9)
+
+
+Relationships in django
+1. one to one       used with OneToOne on the field model
+2. one to many      used with just a Foreign Key declaration on the many side
+3. many to many     used with ManyToMany declaration on the field model
+                    # This doesn't take the property 'on-delete = models.CASCADE'
+                    # beacuse django creates the third table for this kind of relation
+                    # and turns each field to an array
+                    # beacuse each field is turn to an array, we use the 
+
+
+
+Example of a manay to many relationship
+between Books and Country models as declared in the models.py
+
+>>> germany = Country.objects.create(name='Germany', code='De')
+>>> Brazil = Country.objects.create(name='Brazil', code='BR')
+>>> england = Country.objects.create(name='England', code='EN')
+>>> nigeria = Country.objects.create(name='Nigeria', code='NGR')
+>>> germany.save()
+>>> Brazil.save()
+>>> england.save()
+>>> nigeria.save()
+>>> book1.published_countries 
+<django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x111924ac0>
+>>> book1.published_countries.all()
+<QuerySet []>
+>>> book1.published_countries.add(germany)
+>>> book1.published_countries.add(Brazil)
+>>> book1.published_countries.all()   # This is how you add to a many to many field because it is an array
+<QuerySet [<Country: Germany>, <Country: Brazil>]>
+
+
+# performing an inverse querry in any of them
+# if the connected model name is Books, then the inverse querry becomes books_set
+# you can change the inverese querry by setting the  related_name' attribute on the declared relationship field
+>>> germany.books_set.all()
+
+
+# Extras on models
+Circular Relations & Lazy Relations
+
+Sometimes, you might have two models that depend on each other - i.e. you end up with a circular relationship.
+Or you have a model that has a relation with itself.
+Or you have a model that should have a relation with some built-in model (i.e. built into Django) 
+or a model defined in another application.
+
+Below, you find examples for all three cases that include Django's solution for these kinds of "problems":
+Lazy relationships. You can also check out the official docs in addition.
+
+1) Two models that have a circular relationship
+
+class Product(models.Model):
+  # ... other fields ...
+  last_buyer = models.ForeignKey('User')
+  
+class User(models.Model):
+  # ... other fields ...
+  created_products = models.ManyToManyField('Product')
+In this example, we have multiple relationships between the same two models.
+Hence we might need to define them in both models. By using the model name as a string instead of a direct
+reference, Django is able to resolve such dependencies.
+
+2) Relation with the same model
+
+class User(models.Model):
+  # ... other fields ...
+  friends = models.ManyToManyField('self') 
+The special self keyword (used as a string value) tells Django that it should form a 
+relationship with (other) instances of the same model.
+
+3) Relationships with other apps and their models (built-in or custom apps)
+
+class Review(models.Model):
+  # ... other fields ...
+  product = models.ForeignKey('store.Product') # '<appname>.<modelname>'
+You can reference models defined in other Django apps (no matter if created by you, via python manage.py
+startapp <appname> or if it's a built-in or third-party app) by using the app name and then the name of 
+the model inside the app.
+
+
+# django forms
+
+status code
+
+200 request successful
+403 forbidden
+404 not found
+302 change url
+
+
+Views in django
+
+1. template Views
+2. List and details Views
+3. form view $ create,update and delete Views
