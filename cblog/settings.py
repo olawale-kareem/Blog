@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'magazine',
     'monthly_challenge',
     'book_store',
+    'reviews',
     # in-built apps
     'django.contrib.admin',
     'django.contrib.auth',
