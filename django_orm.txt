@@ -193,17 +193,28 @@ the model inside the app.
 
 
 # django forms
+1. manual forms
+2. Model forms
 
 status code
-
 200 request successful
 403 forbidden
 404 not found
 302 change url
 
 
-Views in django
 
-1. template Views
-2. List and details Views
-3. form view $ create,update and delete Views
+Views in django
+1. generic or function based view
+2. View             # base view
+3. template Views
+4. List and details Views
+5. form view $ create,update and delete Views
+
+when to use which view
+1. if you wan't to build your view ground up --> functional or generic view
+2. if you want to use predefined get and post request handling user input --> base View
+3. if you just want to render final message to a user without a dynamic content --> template Views
+4. if you want to display list of things from your database, then --> list view
+5. if you want to display just one thing from your database, then --> detail view
+6. wanna specially handle form, then  ---> Form view 
