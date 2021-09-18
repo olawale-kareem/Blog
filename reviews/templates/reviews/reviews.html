@@ -1,28 +1,23 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'reviews/base.html' %}
+
+{% block title %}
     <title>Reviews</title>
-    <link rel="stylesheet" href="{% static 'reviews/style.css' %}">
-</head>
-<body>
+{% endblock %}
+
+
+{% block content %}
     <header>
-            <h1>Welcome to project reviews</h1>
+        <h1>Welcome to project reviews</h1>
     </header>
 
-   
     <form method='POST' action="">
         {% csrf_token %}
         {{form.as_p}}
         <button type='submit'>Send</button> 
-
-        <!-- <label for="username">UserName</label>
-        <input id='username' name='username' type="text">-->    
     </form>
 
+{% endblock %}
 
-</body>
-</html>
+
+
+
