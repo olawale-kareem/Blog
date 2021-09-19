@@ -1,0 +1,29 @@
+body{
+    font-family: sans-serif;
+    margin:0 auto;
+    width: 70%
+}
+
+.form{
+    margin: 100px auto;
+    width: 50%;
+    padding: 20px;
+    background: plum;
+    border-radius: 10px;
+}
+
+.button{
+    cursor: pointer;
+    padding:0.5rem 1.5rem;
+    border-radius: 6px;
+    background-color: #1f0050;
+    color: white;
+    border: 1px solid ;
+}
+
+button:hover,
+button:active{
+    cursor: pointer;
+    background-color: #320777;
+    border-color: #320777;
+}

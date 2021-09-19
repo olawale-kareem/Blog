@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'monthly_challenge',
     'book_store',
     'reviews',
+    'profiles',
     # in-built apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -130,12 +131,27 @@ STATIC_URL = '/static/'
 
 
 # this is for global static file  directory
+# this tells django where to pick our static files
+# global html or css
 
 STATICFILES_DIRS =[
     BASE_DIR/ 'static'
 ]
 
+# media root for telling django where to save our images on disk
+# responds to a file field on the db
+MEDIA_ROOT = BASE_DIR/'uploads'
+
+
+MEDIA_URL = '/user-media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# This sets how long a session will lasts
+# The default a session last 2 wks
+
+# SESSION_COOKIE_AGE = 120

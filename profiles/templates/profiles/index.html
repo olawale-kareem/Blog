@@ -1,0 +1,18 @@
+{% extends 'profiles/base.html' %}
+
+{% block title %}
+    profile uploads
+{% endblock %}
+
+{% block content %}
+    <div class='form'>
+        {% comment %} Note the actions url starts with a slash and ends with a slash to denote the root directory in this case {% endcomment %}
+        <form action='/profiles/' method='POST' enctype='multipart/form-data'> 
+            {% csrf_token %} 
+            {{form.as_p}}
+            <button class='button' type='submit'>upload!</button>
+            {% comment %} <input type='file' name='image' >
+            <button class='button' type='submit'>upload!</button> {% endcomment %}
+        </form> 
+    </div>
+{% endblock %}

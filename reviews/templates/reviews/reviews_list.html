@@ -10,7 +10,6 @@
     {% for content  in contents  %}
         <a href="{% url 'single-detail' content.id %}  "><li> {{ content.user_name }} (rating:{{ content.rating}})</li></a>
     {% endfor %}   
-
 </ul>
 
 

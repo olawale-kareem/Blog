@@ -201,6 +201,7 @@ status code
 403 forbidden
 404 not found
 302 change url
+500 internal server error
 
 
 
@@ -218,3 +219,22 @@ when to use which view
 4. if you want to display list of things from your database, then --> list view
 5. if you want to display just one thing from your database, then --> detail view
 6. wanna specially handle form, then  ---> Form view 
+
+
+storing image in the db
+the db stores the image as a url path
+
+>>> from profiles.models import FileUploads
+>>> FileUploads.objects.all()
+<QuerySet [<FileUploads: FileUploads object (3)>, <FileUploads: FileUploads object (4)>]>
+>>> j=FileUploads.objects.all()[0]
+>>> j.image
+<FieldFile: uploads/mark.jpeg>
+>>> j.image.size
+19469
+
+
+session:
+# the connection between the client(browser) and the server
+# only store primitive data type in a session: data types like string,boolean and   dictionary
+# do not store objects in a session
