@@ -132,5 +132,20 @@ class SingleDetail(DetailView):  # detail view
                      # this works more like a single view kinda thing
                      # note in the template used with this view, the querry variable is 'reviews'
 
+    def get_context_data(self, **kwargs):                                           # This is all about accessing the stored session data and using it to make decisions here
+        context = super().get_context_data(**kwargs)                                    # detail view context
+        loaded_review = self.object                                              # how to get the objects stored in detailed view
+        request = self.request                                                      # the request stored in detailed view
+        # favorite_id = request.session['favorite_review']                           # getting a ppreviously stored session with a key, this will throw an error if no session is available
+        favorite_id = request.session.get('favorite_review')                         # This handles the error incase no stored session is found
+        context['is_favorite'] = favorite_id == str(loaded_review.id)             # comparing the previously stored session id n the object id, returns a boolean
+        return context
 
+
+class AddFavoriteView(View):
+    def post(self,request):
+        review_id = request.POST['review_id']
+        # fav_review = Reviews.objects.get(pk=review_id) # don't store an object in as session
+        request.session['favorite_review'] = review_id  # save the review id in session, this is a primitive data type
+        return HttpResponseRedirect('/reviews/single_review/' + review_id) #go back to the same page
 

@@ -9,4 +9,16 @@
     <h2>username: {{reviews.user_name}}</h2>
     <h2>rating: {{ reviews.rating}}</h2>
     <p>{{ reviews.review_text}}</p>
+    {% if is_favorite %}
+      <p>This is my Favourite</p>
+    {% else %}
+    <form action="/reviews/favorite/" method="POST" >
+        {% csrf_token %}
+        <input type="hidden" name="review_id" value="{{reviews.id}}">
+        <button>favorite</button>
+    </form> 
+    {% endif %}
+
+    {% comment %} <a href="{% url 'fav-view' reviews.id %}"><button>favorite</button> </a> {% endcomment %}
+
 {% endblock %}
